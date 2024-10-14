@@ -1,0 +1,55 @@
+'use client'
+
+import { useState, useRef } from 'react'
+
+export default function LandingPage() {
+  const [showAbout, setShowAbout] = useState(false)
+  const aboutRef = useRef<HTMLDivElement>(null)
+
+  const scrollToAbout = () => {
+    setShowAbout(true)
+    setTimeout(() => {
+      aboutRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setTimeout(() => setShowAbout(false), 500)
+  }
+
+  return (
+    <div className="min-h-screen bg-yellow-100">
+      <div className="flex flex-col items-center justify-between min-h-screen py-8">
+        <div className="flex-grow flex flex-col items-center justify-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-center mb-4">
+            SENATUS TECHNOLOGIES
+          </h1>
+          <p className="text-xl md:text-2xl">COMING SOON...</p>
+        </div>
+        <button
+          onClick={scrollToAbout}
+          className="mt-8 px-6 py-3 border-2 border-gray-800 text-gray-800 rounded-full hover:bg-gray-800 hover:text-yellow-100 transition-colors"
+        >
+          About Us
+        </button>
+      </div>
+      
+      {showAbout && (
+        <div ref={aboutRef} className="min-h-screen flex flex-col items-center justify-between py-8">
+          <div className="flex-grow flex flex-col items-center justify-center text-center">
+            <p className="text-3xl md:text-5xl font-bold max-w-3xl leading-tight">
+              Revolutionising healthcare with AI.
+            </p>
+          </div>
+          <button
+            onClick={scrollToTop}
+            className="mt-8 px-6 py-3 border-2 border-gray-800 text-gray-800 rounded-full hover:bg-gray-800 hover:text-yellow-100 transition-colors"
+          >
+            Back to Top
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
